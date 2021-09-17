@@ -18,9 +18,11 @@ def save_info():
 
 @app.route('/memo', methods=['GET'])
 def listing():
-    articles = list(db.articles.find({},{'_id':False}))
+    market = list(db.codes.find({'market'},{'_id':False}))
+    sector = list(db.codes.find({'sector'},{'_id':False}))
+    tag = list(db.codes.find({'tag'},{'_id':False}))
 
-    return jsonify({'all_articles':articles})
+    return jsonify({'market':market, 'sector':sector, 'tag':tag})
 
 
 

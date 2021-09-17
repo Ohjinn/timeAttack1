@@ -40,15 +40,17 @@
             showArticles();
         });
 
-        $.ajax({
-            type: "POST",
-            url: '/stock',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({"market": "market-1", "sector": "sector-1", "tag": "tag-1"}),
-            success: function (response) {
+        function stockselection() {
+            $.ajax({
+                type: "POST",
+                url: '/stock',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({"market": "market-1", "sector": "sector-1", "tag": "tag-1"}),
+                success: function (response) {
 
-            }
-        })
+                }
+            })
+        }
 
         function stockinfos() {
                 $.ajax({
@@ -56,6 +58,10 @@
                     url: "/stock",
                     data: {},
                     success: function (response) {
+                        let market = response['market']
+                        let sector = response['sector']
+                        let tag = response['tag']
+
 
                     }
                 })
@@ -72,7 +78,7 @@
     <hr class="my-4">
 
     <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">추천 시작</a>
+        <a onclick="stockinfos()" class="btn btn-primary btn-lg" href="#" role="button">추천 시작</a>
     </p>
 
     <div class="input">
