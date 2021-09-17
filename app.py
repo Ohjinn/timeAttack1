@@ -13,10 +13,7 @@ def home():
 def save_info():
     infos = list(db.codes.find({},{'_id':False}))
 
-    info = request.json['market']
-
-
-		return jsonify(stocks)
+	return jsonify({'infos':infos})
 
 
 @app.route('/memo', methods=['GET'])
