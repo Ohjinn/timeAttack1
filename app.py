@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
-db = client.dbsparta
+db = client.dbStock
 
 @app.route('/')
 def home():
@@ -13,18 +13,19 @@ def home():
 def save_info():
     infos = list(db.codes.find({},{'_id':False}))
 
-	return jsonify({'infos':infos})
 
-
-@app.route('/memo', methods=['GET'])
+#group 값들을 가져오는 함수
+@app.route('/stock', methods=['GET'])
 def listing():
-    market = list(db.codes.find({'market'},{'_id':False}))
-    sector = list(db.codes.find({'sector'},{'_id':False}))
-    tag = list(db.codes.find({'tag'},{'_id':False}))
-
-    return jsonify({'market':market, 'sector':sector, 'tag':tag})
+    info = db.codes.distinct("group")
+    return jsonify({'info' : info})
 
 
+@app.route('/markets', methods=['GET'])
+def lists():
+    info_receive = request.args.get('info_give')
+    markets = list(db.codes.find({'group': info_receive},{'_id':False}))
+    return jsonify(markets)
 
 
 
